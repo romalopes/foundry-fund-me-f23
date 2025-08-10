@@ -71,7 +71,7 @@ contract FundMe {
             uint256 funderIndex = 0;
             funderIndex < s_funders.length;
             funderIndex++
-        ) {
+        ) { 
             address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
@@ -113,6 +113,7 @@ contract FundMe {
     ) public view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
+
 
     function getVersion() public view returns (uint256) {
         return s_priceFeed.version();

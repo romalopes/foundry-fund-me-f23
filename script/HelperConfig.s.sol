@@ -1,8 +1,12 @@
-// SPDX-LICENSE-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 import {Script} from "forge-std/Script.sol";
+import {MockV3Aggregator} from "../test/mocks/MockV3Aggregator.sol";
 
 contract HelperConfig is Script {
+    uint8 public constant DECIMAL = 8; // 8 decimals for ETH/USD
+    int256 public constant INITIAL_PRICE = 2000 * 10 ** 8; // Initial answer of 2000 USD for 1 ETH
+
     NetworkConfig public activeNetworkConfig;
     struct HelperConfigData {
         address priceFeedAddress;
@@ -19,7 +23,7 @@ contract HelperConfig is Script {
             activeNetworkConfig = getSepoliaEth();
         } else if (block.chainid == 31337) {
             // Anvil
-            activeNetworkConfig = getAnvilEth();
+            activeNetworkConfig = getOrCreateAnvilEth();
             // console.log("Using Anvil network configuration");
         } else {
             revert("Unsupported network");
@@ -37,12 +41,22 @@ contract HelperConfig is Script {
         return sepoliaConfig;
     }
 
-    function getAnvilEth() public pure returns (NetworkConfig memory) {
-        // This function is a placeholder for getting the Anvil ETH address.
-        // In a real implementation, you would fetch this from an environment variable or configuration.
-        NetworkConfig memory sepoliaConfig = NetworkConfig({
-            priceFeedAddress: 0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43 // Example address
+    function getOrCreateAnvilEth() public returns (NetworkConfig memory) {
+        if (activeNetworkConfig.priceFeedAddress != address(0)) {
+            return activeNetworkConfig;
+        }
+        // 1. Deploy the mocks
+        // 2. Return the mock address
+        vm.startBroadcast();
+        MockV3Aggregator mockV3Aggregator = new MockV3Aggregator(
+            DECIMAL,
+            INITIAL_PRICE
+        );
+
+        vm.stopBroadcast();
+        NetworkConfig memory anvilConfig = NetworkConfig({
+            priceFeedAddress: address(mockV3Aggregator)
         });
-        return sepoliaConfig;
+        return anvilConfig;
     }
 }

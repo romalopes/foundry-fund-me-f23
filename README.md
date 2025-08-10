@@ -80,3 +80,7 @@ $ forge test -vv
 $ forge script script/DeployFundMe.s.sol
 // Pretends it is going to alchemy sepolia
 $ forge test --match-test test_isPriceFeedVersionAccurate -vvv --fork-url $ALCHEMY_RPC_URL
+$ forge test -vvv --fork-url $ALCHEMY_RPC_URL
+$ forge coverage -vvv --fork-url $ALCHEMY_RPC_URL
+$ forge test -vvv --fork-url $LOCAL_RPC_URL
+$ forge test --match-test testFundUpdatesFundedDataStructure -vvv
