@@ -1,3 +1,7 @@
 {
-  "wake.compiler.solc.remappings": ["forge-std/=lib/forge-std/src/"]
+  "wake.compiler.solc.remappings": [
+    "@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/",
+    "chainlink-brownie-contracts/=lib/chainlink-brownie-contracts/",
+    "forge-std/=lib/forge-std/src/"
+  ]
 }

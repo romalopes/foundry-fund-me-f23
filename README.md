@@ -84,3 +84,18 @@ $ forge test -vvv --fork-url $ALCHEMY_RPC_URL
 $ forge coverage -vvv --fork-url $ALCHEMY_RPC_URL
 $ forge test -vvv --fork-url $LOCAL_RPC_URL
 $ forge test --match-test testFundUpdatesFundedDataStructure -vvv
+$ forge test --match-test testWithdrawWithaSingleFunder -vvv
+// Shows the amount of gas used. It usually should much righer because it involves the test of test.
+$ forge snapshot
+// Shows the storage variables.
+$ forge inspect FundMe storageLayout --json -vvv -s
+$ cast storage
+$ forge script script/DeployFundMe.s.sol --rpc-url http://localhost:8545 --private-key $ANVIL_PRIVATE_KEY --broadcast
+$ cast storage 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 1
+
+$ forge install ChainAccelOrg/foundry-devops
+$ forge script script/Interactions.s.sol:FundFundMe --rpc-url http://localhost:8545 --private-key $ANVIL_PRIVATE_KEY --broadcast
+$ forge test --match-test testUserCanFundAndOwnerWithdraw -vvv
+$ forge test --match-test testUserCanWithdrawInteractions -vvv
+$ forge test --rpc-url $METAMASK_RPC_URL
+$ forge test --fork-url $METAMASK_RPC_URL
