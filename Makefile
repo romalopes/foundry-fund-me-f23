@@ -16,7 +16,7 @@ github:
 	git commit -m "Update Makefile and scripts"
 	git push origin main
 
-# Update Dependencies
+# Update Dependencies 
 update:; forge update
 
 format :; forge fmt
