@@ -69,6 +69,8 @@ $ cast --help
 ########################################################################
 ########################################################################
 ########################################################################
+
+```shell
 // create the project
 $ forge init
 $ forget test
@@ -99,3 +101,4 @@ $ forge test --match-test testUserCanFundAndOwnerWithdraw -vvv
 $ forge test --match-test testUserCanWithdrawInteractions -vvv
 $ forge test --rpc-url $METAMASK_RPC_URL
 $ forge test --fork-url $METAMASK_RPC_URL
+```
