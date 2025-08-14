@@ -102,3 +102,6 @@ $ forge test --match-test testUserCanWithdrawInteractions -vvv
 $ forge test --rpc-url $METAMASK_RPC_URL
 $ forge test --fork-url $METAMASK_RPC_URL
 ```
+
+The smart contract....
+0xe02843FfD59142aefDA413C267148b0E23002195
